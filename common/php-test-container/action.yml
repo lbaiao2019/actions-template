@@ -8,7 +8,9 @@ runs:
   using: "composite"
   steps:
     - id: build-docker-image
-      run: docker-compose -f docker-compose-ci.yml build --pull
+      run: |
+        pwd
+        docker-compose -f docker-compose-ci.yml build --pull
       shell: bash
     - id: create-shared-directory
       run: mkdir -m 0777 ./coverage-report
