@@ -8,8 +8,14 @@ runs:
   using: "composite"
   steps:
     - run: mkdir -p /home/runner/.ssh
+      shell: bash
     - run: echo ${{ inputs.private_key }} > ~/.ssh/id_rsa
+      shell: bash    
     - run: chmod 600 ~/.ssh/id_rsa
+      shell: bash
     - run: echo -e "Host github.com\n\tHostName github.com\n\tPreferredAuthentications publickey\n\tIdentityFile ~/.ssh/id_rsa" >> ~/.ssh/config
+      shell: bash    
     - run: chmod 600 ~/.ssh/config
+      shell: bash
     - run: ssh-keygen -F github.com || ssh-keyscan github.com >>~/.ssh/known_hosts
+      shell: bash
