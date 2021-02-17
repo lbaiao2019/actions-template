@@ -1,0 +1,18 @@
+name: 'RunPhpUnitTest'
+description: 'PHP Unit Test - docker-compose'
+inputs:
+  service:  
+    description: 'service name'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - id: build-docker-image
+      run: docker-compose -f docker-compose-ci.yml build --pull
+      shell: bash
+    - id: create-shared-directory
+      run: mkdir -m 0777 ./coverage-report
+      shell: bash
+    - id: run-test-suite
+      run: docker-compose -f docker-compose-ci.yml up --abort-on-container-exit --exit-code-from ${{ inputs.SERVICE }}
+      shell: bash
