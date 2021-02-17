@@ -9,6 +9,7 @@ runs:
   steps:
     - id: ssh-key
       run: |
+        cd /home/runner/
         mkdir -p /home/runner/.ssh
         echo ${{ inputs.private_key }} > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
