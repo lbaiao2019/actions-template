@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-
+VAR1=$1
 mkdir -p /home/runner/.ssh
-echo ${{ inputs.private_key }} > ~/.ssh/id_rsa
+echo $VAR1 > ~/.ssh/id_rsa
 chmod 600 ~/.ssh/id_rsa
 echo -e "Host github.com\n\tHostName github.com\n\tPreferredAuthentications publickey\n\tIdentityFile ~/.ssh/id_rsa" >> ~/.ssh/config
 chmod 600 ~/.ssh/config
