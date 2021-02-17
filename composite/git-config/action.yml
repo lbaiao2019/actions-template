@@ -8,5 +8,5 @@ runs:
   using: "composite"
   steps:
     - id: ssh-key-config 
-      run: ./script.sh
+      run: ${{ github.action_path }}/script.sh
       shell: bash
