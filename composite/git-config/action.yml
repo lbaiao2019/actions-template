@@ -7,9 +7,12 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - id: check 
+      run: |
+        pwd
+      shell: bash
     - id: ssh-key
       run: |
-        cd /home/runner/
         mkdir -p /home/runner/.ssh
         echo ${{ inputs.private_key }} > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
