@@ -7,6 +7,9 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - id: ssh-key-config 
-      run: ${{ github.action_path }}/script.sh ${{ inputs.private_key }}
-      shell: bash
+    - run: mkdir -p /home/runner/.ssh
+    - run: echo ${{ inputs.private_key }} > ~/.ssh/id_rsa
+    - run: chmod 600 ~/.ssh/id_rsa
+    - run: echo -e "Host github.com\n\tHostName github.com\n\tPreferredAuthentications publickey\n\tIdentityFile ~/.ssh/id_rsa" >> ~/.ssh/config
+    - run: chmod 600 ~/.ssh/config
+    - run: ssh-keygen -F github.com || ssh-keyscan github.com >>~/.ssh/known_hosts
