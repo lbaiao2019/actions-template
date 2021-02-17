@@ -1,0 +1,29 @@
+name: 'Terraform check'
+description: 'Terraform validate'
+inputs:
+  service:
+    description: 'service name'
+    required: true
+  accname:
+    description: 'account name'
+    required: true
+  environment:  
+    description: 'environment'
+    required: true
+  region:  
+    description: 'region'
+    required: true
+  mgmt_account_id:  
+    description: 'mgmt account id'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - id: version
+      run: |
+        cd ./iac
+        terraform version
+        make init 'ACCNAME=${{ inputs.accname }}' 'ENVNAME=${{ inputs.environment }}' 'REGION=${{ inputs.region }}'
+        terraform validate
+      shell: bash
