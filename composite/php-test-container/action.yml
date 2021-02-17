@@ -9,7 +9,6 @@ runs:
   steps:
     - id: build-docker-image
       run: |
-        pwd
         docker-compose -f docker-compose-ci.yml build --pull
       shell: bash
     - id: create-shared-directory
