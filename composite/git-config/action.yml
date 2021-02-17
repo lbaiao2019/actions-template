@@ -1,0 +1,18 @@
+name: 'GitConfig'
+description: 'Configurate GIT'
+inputs:
+  private_key:  
+    description: 'ssh private key'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - id: ssh-key
+      run: |
+        mkdir -p /home/runner/.ssh
+        echo ${{ inputs.private_key }} > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        echo -e "Host github.com\n\tHostName github.com\n\tPreferredAuthentications publickey\n\tIdentityFile ~/.ssh/id_rsa" >> ~/.ssh/config
+        chmod 600 ~/.ssh/config
+        ssh-keygen -F github.com || ssh-keyscan github.com >>~/.ssh/known_hosts
+      shell: bash
