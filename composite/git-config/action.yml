@@ -7,17 +7,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - id: check 
-      run: |
-        pwd
-      shell: bash
-    - id: ssh-key
-      run: |
-        cd /
-        mkdir -p /home/runner/.ssh
-        echo ${{ inputs.private_key }} > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-        echo -e "Host github.com\n\tHostName github.com\n\tPreferredAuthentications publickey\n\tIdentityFile ~/.ssh/id_rsa" >> ~/.ssh/config
-        chmod 600 ~/.ssh/config
-        ssh-keygen -F github.com || ssh-keyscan github.com >>~/.ssh/known_hosts
+    - id: ssh-key-config 
+      run: ./script.sh
       shell: bash
