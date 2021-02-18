@@ -28,7 +28,6 @@ runs:
         cd ./iac
         terraform version
         make init 'ACCNAME=${{ inputs.accname }}' 'ENVNAME=${{ inputs.environment }}' 'REGION=${{ inputs.region }}'
-        terraform validate
         export TF_VAR_region=${{ matrix.region }}
         export TF_VAR_service=${{ env.SERVICE }}
         export TF_VAR_environment=${{ matrix.environment }}
