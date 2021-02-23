@@ -10,7 +10,7 @@ runs:
     - id: clean
       run: |      
         echo ${{ inputs.workspace }}
-        sudo su - runner        
+        su - runner        
         rm -rf ${{ inputs.workspace }}
         docker container prune -f
         docker image prune -a -f
