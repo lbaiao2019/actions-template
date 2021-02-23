@@ -1,17 +1,10 @@
 name: 'clean-self-hosted'
 description: 'Clean up self-hosted runners'
-inputs:
-  workspace:
-    description: 'workspace'
-    required: true
 runs:
   using: "composite"
   steps:
     - id: clean
       run: |      
-        echo ${{ inputs.workspace }}
-        su - runner        
-        rm -rf ${{ inputs.workspace }}
         docker container prune -f
         docker image prune -a -f
       shell: bash
