@@ -9,8 +9,8 @@ runs:
   steps:
     - id: clean
       run: |
+        whoami
         echo ${{ inputs.workspace }}
-        sudo chown -R runner:runner ${{ inputs.workspace }}
         docker container prune -f
         docker image prune -a -f
       shell: bash
