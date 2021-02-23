@@ -18,6 +18,6 @@ runs:
       run: |
         cd ./iac
         terraform version
-        make init 'ACCNAME=${{ inputs.accname }}' 'ENVNAME=${{ inputs.environment }}' 'REGION=${{ inputs.region }}'
+        terraform init -backend=false
         terraform validate
       shell: bash
