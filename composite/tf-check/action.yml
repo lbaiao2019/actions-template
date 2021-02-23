@@ -1,16 +1,5 @@
 name: 'terraform-check'
 description: 'Terraform validate'
-inputs:
-  accname:
-    description: 'account name'
-    required: true
-  environment:  
-    description: 'environment'
-    required: true
-  region:  
-    description: 'region'
-    required: true
-
 runs:
   using: "composite"
   steps:
