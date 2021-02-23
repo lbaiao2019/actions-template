@@ -10,9 +10,7 @@ runs:
     - id: clean
       run: |
         echo ${{ inputs.workspace }}
-        cd ${{ inputs.workspace }} && cd ..
-        pwd
-        rm -fr *
+        sudo chown -R runner:runner ${{ inputs.workspace }}
         docker container prune -f
         docker image prune -a -f
       shell: bash
