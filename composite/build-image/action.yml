@@ -7,10 +7,6 @@ inputs:
   build_number:
     description: 'build_number'
     required: true
-outputs:
-  image-tar:
-    description: 'image tar'
-    value: "/tmp/release-${{ inputs.service }}-${{ inputs.build_number }}.tar"
 runs:
   using: "composite"
   steps:

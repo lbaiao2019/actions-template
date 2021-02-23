@@ -16,10 +16,9 @@ inputs:
   account_number:  
     description: 'account_number'
     required: true
-  app_version:
-    description: 'application version'
+  build_number:  
+    description: 'build_number'
     required: true
-
 runs:
   using: "composite"
   steps:
