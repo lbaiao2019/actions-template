@@ -8,8 +8,9 @@ runs:
   using: "composite"
   steps:
     - id: clean
-      run: |
+      run: |      
         echo ${{ inputs.workspace }}
+        sudo su - runner        
         rm -rf ${{ inputs.workspace }}
         docker container prune -f
         docker image prune -a -f
