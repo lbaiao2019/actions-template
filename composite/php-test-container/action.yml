@@ -1,4 +1,4 @@
-name: 'RunPhpUnitTest'
+name: 'php-unit-test'
 description: 'PHP Unit Test - docker-compose'
 inputs:
   service:  
@@ -15,5 +15,5 @@ runs:
       run: mkdir -m 0777 ./coverage-report
       shell: bash
     - id: run-test-suite
-      run: docker-compose -f docker-compose-ci.yml up --abort-on-container-exit --exit-code-from ${{ inputs.SERVICE }}
+      run: docker-compose -f docker-compose-ci.yml up --abort-on-container-exit --exit-code-from ${{ inputs.service }}
       shell: bash

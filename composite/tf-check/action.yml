@@ -1,4 +1,4 @@
-name: 'Terraform check'
+name: 'terraform-check'
 description: 'Terraform validate'
 inputs:
   accname:
@@ -14,7 +14,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - id: version
+    - id: validate
       run: |
         cd ./iac
         terraform version

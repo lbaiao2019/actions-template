@@ -1,0 +1,21 @@
+name: 'build-image'
+description: 'Build Image'
+inputs:
+  service:
+    description: 'service name'
+    required: true
+  build_number:
+    description: 'build_number'
+    required: true
+outputs:
+  image-tar:
+    description: 'image tar'
+    value: "/tmp/release-${{ inputs.service }}-${{ inputs.build_number }}.tar"
+runs:
+  using: "composite"
+  steps:
+    - id: build-image
+      run: |
+          docker build --target release -t release-${{ inputs.service }} .
+          docker save release-${{ inputs.services }} > /tmp/release-${{ inputs.service }}-${{ inputs.build_number }}.tar
+      shell: bash

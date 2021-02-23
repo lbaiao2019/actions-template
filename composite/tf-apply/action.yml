@@ -1,5 +1,5 @@
-name: 'Terraform check'
-description: 'Terraform validate'
+name: 'terraform-apply'
+description: 'Terraform Plan/Apply'
 inputs:
   service:
     description: 'service name'
@@ -13,8 +13,8 @@ inputs:
   region:  
     description: 'region'
     required: true
-  mgmt_account_id:  
-    description: 'mgmt account id'
+  account_number:  
+    description: 'account_number'
     required: true
   app_version:
     description: 'application version'
@@ -23,14 +23,14 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - id: version
+    - id: plan
       run: |
         cd ./iac
         make init 'ACCNAME=${{ inputs.accname }}' 'ENVNAME=${{ inputs.environment }}' 'REGION=${{ inputs.region }}'
-        export TF_VAR_region=${{ matrix.region }}
-        export TF_VAR_service=${{ env.SERVICE }}
-        export TF_VAR_environment=${{ matrix.environment }}
-        export TF_VAR_image_ecr=${{ env.MGMT_ACCOUNT_ID }}.dkr.ecr.${{ matrix.region }}.amazonaws.com/${{ env.SERVICE }}:latest
-        export TF_VAR_app_version=${{env.APP_VERSION}}
-        make plan 'ACCNAME=${{ matrix.accname }}' 'ENVNAME=${{ matrix.environment }}' 'REGION=${{ matrix.region }}'        
+        export TF_VAR_region=${{ inputs.region }}
+        export TF_VAR_service=${{ inputs.service }}
+        export TF_VAR_environment=${{ inputs.environment }}
+        export TF_VAR_image_ecr=${{ inputs.account_number }}.dkr.ecr.${{ inputs.region }}.amazonaws.com/${{ inputs.service }}:latest
+        make plan 'ACCNAME=${{ inputs.accname }}' 'ENVNAME=${{ inputs.environment }}' 'REGION=${{ inputs.region }}'
+        make apply 'ACCNAME=${{ inputs.accname }}' 'ENVNAME=${{ inputs.environment }}' 'REGION=${{ inputs.region }}'
       shell: bash

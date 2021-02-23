@@ -1,0 +1,42 @@
+name: 'publish-image'
+description: 'Publish Image'
+inputs:
+  service:
+    description: 'service name'
+    required: true
+  accname:
+    description: 'account_number'
+    required: true
+  region:
+    description: 'region'
+    required: true
+  build_number:
+    description: 'build_number'
+    required: true
+  image-tar:
+    description: 'image tar'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - id: load
+      run: |
+          docker load --input ${{ inputs.image-tar }}
+      shell: bash
+    - id: tag
+      run: |
+          docker tag release-${{ inputs.service }}:latest ${{ inputs.accname }}.dkr.ecr.${{ inputs.region }}.amazonaws.com/${{ inputs.service }}:${{ inputs.build_number }}
+          docker tag release-${{ inputs.service }}:latest ${{ inputs.accname }}.dkr.ecr.${{ inputs.region }}.amazonaws.com/${{ inputs.service }}:latest
+      shell: bash
+    - id: push
+      run: |
+          docker push ${{ inputs.accname }}.dkr.ecr.${{ inputs.region }}.amazonaws.com/${{ inputs.service }}:${{ inputs.build_number }}
+          docker push ${{ inputs.accname }}.dkr.ecr.${{ inputs.region }}.amazonaws.com/${{ inputs.service }}:latest
+      shell: bash
+    - id: destroy
+      run: |
+          docker image rm -f release-${{ inputs.service }}
+          docker image rm -f ${{ inputs.accname }}.dkr.ecr.${{ inputs.region }}.amazonaws.com/${{ inputs.service }}:${{ inputs.build_number }}
+          docker image rm -f ${{ inputs.accname }}.dkr.ecr.${{ inputs.region }}.amazonaws.com/${{ inputs.service }}:latest
+      shell: bash
