@@ -9,7 +9,8 @@ runs:
   steps:
     - id: clean
       run: |
+        echo ${{ inputs.workspace }}
         rm -rf ${{ inputs.workspace }}
         docker container prune -f
-        ocker image prune -a -f
+        docker image prune -a -f
       shell: bash
