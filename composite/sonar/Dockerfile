@@ -17,7 +17,7 @@ ENV PATH=${PATH}:${SONAR_SCANNER_HOME}/bin:${NODEJS_HOME}/bin
 WORKDIR /opt
 
 # https://help.github.com/en/actions/creating-actions/dockerfile-support-for-github-actions#user
-USER runner
+USER root
 
 # Prepare entrypoint
 COPY entrypoint.sh /entrypoint.sh
