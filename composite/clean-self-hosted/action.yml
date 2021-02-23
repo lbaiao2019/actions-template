@@ -12,7 +12,7 @@ runs:
         echo ${{ inputs.workspace }}
         cd ${{ inputs.workspace }} && cd ..
         pwd
-        rm -fr .
+        rm -fr *
         docker container prune -f
         docker image prune -a -f
       shell: bash
