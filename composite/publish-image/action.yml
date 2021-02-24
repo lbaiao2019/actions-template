@@ -33,5 +33,4 @@ runs:
           echo "remove image"
           docker image rm -f release-${{ inputs.service }}-${{ inputs.build_number }}:latest 
           docker image rm -f ${{ inputs.accname }}.dkr.ecr.${{ inputs.region }}.amazonaws.com/${{ inputs.service }}:${{ inputs.build_number }}
-          docker image rm -f ${{ inputs.accname }}.dkr.ecr.${{ inputs.region }}.amazonaws.com/${{ inputs.service }}:latest
       shell: bash
