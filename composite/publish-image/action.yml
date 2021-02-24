@@ -23,9 +23,6 @@ runs:
     - id: load
       run: |
           docker load --input ${{ inputs.image-tar }}
-      shell: bash
-    - id: tag
-      run: |
           docker tag release-${{ inputs.service }}-${{ inputs.build_number }}:latest ${{ inputs.accname }}.dkr.ecr.${{ inputs.region }}.amazonaws.com/${{ inputs.service }}:${{ inputs.build_number }}
           docker tag release-${{ inputs.service }}-${{ inputs.build_number }}:latest ${{ inputs.accname }}.dkr.ecr.${{ inputs.region }}.amazonaws.com/${{ inputs.service }}:latest
 
