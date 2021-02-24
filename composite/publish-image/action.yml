@@ -28,15 +28,11 @@ runs:
       run: |
           docker tag release-${{ inputs.service }}-${{ inputs.build_number }}:latest ${{ inputs.accname }}.dkr.ecr.${{ inputs.region }}.amazonaws.com/${{ inputs.service }}:${{ inputs.build_number }}
           docker tag release-${{ inputs.service }}-${{ inputs.build_number }}:latest ${{ inputs.accname }}.dkr.ecr.${{ inputs.region }}.amazonaws.com/${{ inputs.service }}:latest
-      shell: bash
-    - id: push
-      run: |
+
           docker push ${{ inputs.accname }}.dkr.ecr.${{ inputs.region }}.amazonaws.com/${{ inputs.service }}:${{ inputs.build_number }}
           docker push ${{ inputs.accname }}.dkr.ecr.${{ inputs.region }}.amazonaws.com/${{ inputs.service }}:latest
-      shell: bash
-    - id: destroy
-      run: |
-          docker image rm -f release-${{ inputs.service }}
+
+          docker image rm -f release-${{ inputs.service }}-${{ inputs.build_number }}:latest 
           docker image rm -f ${{ inputs.accname }}.dkr.ecr.${{ inputs.region }}.amazonaws.com/${{ inputs.service }}:${{ inputs.build_number }}
           docker image rm -f ${{ inputs.accname }}.dkr.ecr.${{ inputs.region }}.amazonaws.com/${{ inputs.service }}:latest
       shell: bash
