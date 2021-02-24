@@ -22,13 +22,15 @@ runs:
   steps:
     - id: load
       run: |
+          echo "load"
           docker load --input ${{ inputs.image-tar }}
+          echo "tags"
           docker tag release-${{ inputs.service }}-${{ inputs.build_number }}:latest ${{ inputs.accname }}.dkr.ecr.${{ inputs.region }}.amazonaws.com/${{ inputs.service }}:${{ inputs.build_number }}
           docker tag release-${{ inputs.service }}-${{ inputs.build_number }}:latest ${{ inputs.accname }}.dkr.ecr.${{ inputs.region }}.amazonaws.com/${{ inputs.service }}:latest
-
+          echo "push"
           docker push ${{ inputs.accname }}.dkr.ecr.${{ inputs.region }}.amazonaws.com/${{ inputs.service }}:${{ inputs.build_number }}
           docker push ${{ inputs.accname }}.dkr.ecr.${{ inputs.region }}.amazonaws.com/${{ inputs.service }}:latest
-
+          echo "remove image"
           docker image rm -f release-${{ inputs.service }}-${{ inputs.build_number }}:latest 
           docker image rm -f ${{ inputs.accname }}.dkr.ecr.${{ inputs.region }}.amazonaws.com/${{ inputs.service }}:${{ inputs.build_number }}
           docker image rm -f ${{ inputs.accname }}.dkr.ecr.${{ inputs.region }}.amazonaws.com/${{ inputs.service }}:latest
