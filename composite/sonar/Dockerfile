@@ -15,14 +15,10 @@ ARG NODEJS_HOME=/opt/nodejs
 ENV PATH=${PATH}:${SONAR_SCANNER_HOME}/bin:${NODEJS_HOME}/bin
 
 WORKDIR /opt
-
-RUN adduser --disabled-password runner
+USER root
 
 # Prepare entrypoint
 COPY entrypoint.sh /entrypoint.sh
-RUN chown -R runner:runner /entrypoint.sh
 RUN chmod +x /entrypoint.sh
  
-USER runner
-
 ENTRYPOINT ["/entrypoint.sh"]
