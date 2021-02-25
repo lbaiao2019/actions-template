@@ -4,17 +4,14 @@ inputs:
   service:
     description: 'service name'
     required: true
-  accname:
-    description: 'account_number'
-    required: true
-  region:
-    description: 'region'
-    required: true
   build_number:
     description: 'build_number'
     required: true
   image-tar:
     description: 'image tar'
+    required: true
+  ecr_registry:
+    description: 'ecr_registry'
     required: true
 
 runs:
@@ -25,12 +22,12 @@ runs:
           echo "load"
           docker load --input ${{ inputs.image-tar }}
           echo "tags"
-          docker tag release-${{ inputs.service }}-${{ inputs.build_number }}:latest ${{ inputs.accname }}.dkr.ecr.${{ inputs.region }}.amazonaws.com/${{ inputs.service }}:${{ inputs.build_number }}
-          docker tag release-${{ inputs.service }}-${{ inputs.build_number }}:latest ${{ inputs.accname }}.dkr.ecr.${{ inputs.region }}.amazonaws.com/${{ inputs.service }}:latest
+          docker tag release-${{ inputs.service }}-${{ inputs.build_number }}:latest ${{ inputs.ecr_registry }}/${{ inputs.service }}:${{ inputs.build_number }}
+          docker tag release-${{ inputs.service }}-${{ inputs.build_number }}:latest ${{ inputs.ecr_registry }}/${{ inputs.service }}:latest
           echo "push"
-          docker push ${{ inputs.accname }}.dkr.ecr.${{ inputs.region }}.amazonaws.com/${{ inputs.service }}:${{ inputs.build_number }}
-          docker push ${{ inputs.accname }}.dkr.ecr.${{ inputs.region }}.amazonaws.com/${{ inputs.service }}:latest
+          docker push ${{ inputs.ecr_registry }}/${{ inputs.service }}:${{ inputs.build_number }}
+          docker push ${{ inputs.ecr_registry }}/${{ inputs.service }}:latest
           echo "remove image"
           docker image rmi release-${{ inputs.service }}-${{ inputs.build_number }}:latest
-          docker image rmi ${{ inputs.accname }}.dkr.ecr.${{ inputs.region }}.amazonaws.com/${{ inputs.service }}:${{ inputs.build_number }}
+          docker image rmi ${{ inputs.ecr_registry }}/${{ inputs.service }}:${{ inputs.build_number }}
       shell: bash
