@@ -31,6 +31,6 @@ runs:
           docker push ${{ inputs.accname }}.dkr.ecr.${{ inputs.region }}.amazonaws.com/${{ inputs.service }}:${{ inputs.build_number }}
           docker push ${{ inputs.accname }}.dkr.ecr.${{ inputs.region }}.amazonaws.com/${{ inputs.service }}:latest
           echo "remove image"
-          docker image rmi release-${{ inputs.service }}-${{ inputs.build_number }}:latest 
+          docker image rmi release-${{ inputs.service }}-${{ inputs.build_number }}:latest
           docker image rmi ${{ inputs.accname }}.dkr.ecr.${{ inputs.region }}.amazonaws.com/${{ inputs.service }}:${{ inputs.build_number }}
       shell: bash
