@@ -12,10 +12,10 @@ runs:
   steps:
     - id: build-image
       run: |
-          docker build --target release -t release-${{ inputs.service }}-${{ inputs.build_number }} .
           echo "buil complete"
-          docker save release-${{ inputs.service }}-${{ inputs.build_number }} > /tmp/release-${{ inputs.service }}-${{ inputs.build_number }}.tar
+          docker build --target release -t release-${{ inputs.service }}-${{ inputs.build_number }} .
           echo "save image"
-          docker image rmi release-${{ inputs.service }}-${{ inputs.build_number }}:latest
+          docker save release-${{ inputs.service }}-${{ inputs.build_number }} > /tmp/release-${{ inputs.service }}-${{ inputs.build_number }}.tar
           echo "remove image"
+          docker image rmi release-${{ inputs.service }}-${{ inputs.build_number }}:latest
       shell: bash
