@@ -24,6 +24,7 @@ runs:
   steps:
     - id: plan
       run: |
+        echo "Terraform apple"
         cd ./iac
         make init 'ACCNAME=${{ inputs.accname }}' 'ENVNAME=${{ inputs.environment }}' 'REGION=${{ inputs.region }}'
         export TF_VAR_region=${{ inputs.region }}

@@ -1,16 +1,22 @@
 name: 'clean-self-hosted'
 description: 'Clean up self-hosted runners'
 inputs:
-  workspace:
-    description: 'workspace'
+  service:
+    description: 'service name'
+    required: true
+  build_number:
+    description: 'build_number'
+    required: true
+  ecr_registry:
+    description: 'ecr_registry'
     required: true
 runs:
   using: "composite"
   steps:
     - id: clean
       run: |
-        whoami
-        echo ${{ inputs.workspace }}
-        docker container prune -f
-        docker image prune -a -f
+        docker image rmi release-${{ inputs.service }}-${{ inputs.build_number }}
+        docker image rmi ${{ inputs.ecr_registry }}/${{ inputs.service }}:${{ inputs.build_number }}
+        docker image rmi ${{ inputs.ecr_registry }}/${{ inputs.service }}:latest
+        rm /tmp/release-${{ inputs.service}}-${{ inputs.build_number }}.tar
       shell: bash
