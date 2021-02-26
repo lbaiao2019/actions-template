@@ -7,9 +7,6 @@ inputs:
   build_number:
     description: 'build_number'
     required: true
-  image-tar:
-    description: 'image tar'
-    required: true
   ecr_registry:
     description: 'ecr_registry'
     required: true
@@ -20,14 +17,11 @@ runs:
     - id: load
       run: |
           echo "load"
-          docker load --input ${{ inputs.image-tar }}
+          docker load --input /tmp/release-${{ inputs.service}}-${{ inputs.build_number }}.tar
           echo "tags"
           docker tag release-${{ inputs.service }}-${{ inputs.build_number }}:latest ${{ inputs.ecr_registry }}/${{ inputs.service }}:${{ inputs.build_number }}
           docker tag release-${{ inputs.service }}-${{ inputs.build_number }}:latest ${{ inputs.ecr_registry }}/${{ inputs.service }}:latest
           echo "push"
           docker push ${{ inputs.ecr_registry }}/${{ inputs.service }}:${{ inputs.build_number }}
           docker push ${{ inputs.ecr_registry }}/${{ inputs.service }}:latest
-          echo "remove image"
-          docker image rmi release-${{ inputs.service }}-${{ inputs.build_number }}:latest
-          docker image rmi ${{ inputs.ecr_registry }}/${{ inputs.service }}:${{ inputs.build_number }}
       shell: bash
