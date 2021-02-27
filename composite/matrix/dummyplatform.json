@@ -4,6 +4,6 @@
         "accountNumber": "567356249568",
         "role": "arn:aws:iam::567356249568:role/ado-deploy-wa-api",
         "accname": "dummyclient-dummyplatform-dev",
-        "runOn": "always"
+        "runOn": "refs/pull/8292/merge"
     }
 ]
