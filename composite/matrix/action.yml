@@ -10,6 +10,6 @@ runs:
     - id: matrix
       run: |
         branchName=$(echo '${{ github.ref }}' | sed 's,refs/heads/,,g')  
-        matrix=$(jq --arg branchName "$branchName" 'map(. | select((.runOn==$branchName) or (.runOn=="always")) )' ${{ inputs.environment_type}.json )}
+        matrix=$(jq --arg branchName "$branchName" 'map(. | select((.runOn==$branchName) or (.runOn=="always")) )' ${{ inputs.environment_type}}.json )
         echo ::set-output name=matrix::{\"include\":$(echo $matrix)}\"
       shell: bash
