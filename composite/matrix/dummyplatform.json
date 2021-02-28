@@ -4,6 +4,16 @@
         "accountNumber": "567356249568",
         "role": "arn:aws:iam::567356249568:role/ado-deploy-wa-api",
         "accname": "dummyclient-dummyplatform-dev",
-        "runOn": "always"
+        "runOn": "always",
+        "region": "eu-west-1"
+    },
+    {
+        "environment": "integration",
+        "accountNumber": "567356249568",
+        "role": "arn:aws:iam::567356249568:role/ado-deploy-wa-api",
+        "accname": "dummyclient-dummyplatform-dev",
+        "runOn": "always",
+        "region": "ap-southeast-2"
+
     }
 ]
